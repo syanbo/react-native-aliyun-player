@@ -24,17 +24,16 @@ android {
     lintOptions {
         abortOnError false
     }
+
 }
 
 repositories {
     mavenCentral()
+
 }
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
-    compile fileTree(dir: 'libs', include: ['*.arr'])
-    compile(name: 'AlivcReporter-1.2', ext: 'aar')
-    compile(name: 'AlivcPlayer-3.4.6', ext: 'aar')
-    compile(name: 'AliyunVodPlayer-3.4.6', ext: 'aar')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
 }
   
