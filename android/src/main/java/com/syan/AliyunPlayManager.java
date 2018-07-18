@@ -41,16 +41,16 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
         this.context = context;
         // Create a view here
         // https://facebook.github.io/react-native/docs/native-components-android.html#2-implement-method-createviewinstance
+        AliyunPlayerView playView = new AliyunPlayerView(context);
+        this.initSurfaceView();
+        playView.addView(mSurfaceView);
 
-
-        return new AliyunPlayerView(context);
+        return playView;
     }
 
     @ReactProp(name = "exampleProp")
     public void setExampleProp(AliyunPlayerView view, String prop) {
         Log.e(TAG, "exampleProp" + prop);
-        this.initSurfaceView();
-        view.addView(mSurfaceView);
         // Set properties from React onto your native component via a setter method
         // https://facebook.github.io/react-native/docs/native-components-android.html#3-expose-view-property-setters-using-reactprop-or-reactpropgroup-annotation
     }

@@ -9,6 +9,17 @@
 
 `$ react-native link react-native-aliyun-player`
 
+### 安卓
+```$xslt
+app的gradle文件添加
+
+    repositories {
+        flatDir {
+            dirs project(':react-native-aliyun-player').file('libs')
+        }
+    }
+```
+
 ### Manual installation
 
 
@@ -50,4 +61,3 @@ import RNAliyunPlayer from 'react-native-aliyun-player';
 // TODO: What to do with the module?
 RNAliyunPlayer;
 ```
-  
