@@ -12,6 +12,7 @@
 
 @interface AliyunPlayerView : UIView <AliyunVodPlayerDelegate>
 
-@property (nonatomic, copy) RCTDirectEventBlock onEventCallback;
+@property (nonatomic, copy) RCTBubblingEventBlock onEventCallback;
+@property (nonatomic, copy) RCTBubblingEventBlock onPlayingCallback;
 
 @end

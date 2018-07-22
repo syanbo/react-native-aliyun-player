@@ -18,7 +18,8 @@
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_VIEW_PROPERTY(prepareAsyncParams, NSDictionary)
-RCT_EXPORT_VIEW_PROPERTY(onEventCallback, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onEventCallback, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onPlayingCallback, RCTBubblingEventBlock)
 
 - (UIView *)view
 {

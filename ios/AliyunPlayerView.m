@@ -8,14 +8,26 @@
 
 #import "AliyunPlayerView.h"
 
+#define WeakObj(o) __weak typeof(o) o##Weak = o;
+
 @interface AliyunPlayerView ()
 
 @property (nonatomic, strong) NSDictionary *prepareAsyncParams;
 @property (nonatomic, strong) AliyunVodPlayer *aliPlayer;
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
 @implementation AliyunPlayerView
+
+- (void)dealloc {
+  if (_aliPlayer) {
+    if (_timer) {
+      [self clearTimer];
+    }
+    _aliPlayer = nil;
+  }
+}
 
 #pragma mark - Props config
 - (void)setPrepareAsyncParams:(NSDictionary *)prepareAsyncParams {
@@ -62,19 +74,21 @@
 #pragma mark - AliyunVodPlayerDelegate
 - (void)vodPlayer:(AliyunVodPlayer *)vodPlayer onEventCallback:(AliyunVodPlayerEvent)event{
   NSLog(@"onEventCallback: %ld", event);
-//  self.onEventCallback(@{@"event": @(event)});
+  
+  NSMutableDictionary *callbackExt = [NSMutableDictionary dictionary];
   //这里监控播放事件回调
   //主要事件如下：
   switch (event) {
     case AliyunVodPlayerEventPrepareDone:
-      [_aliPlayer start];
       //播放准备完成时触发
+      [_aliPlayer start];
       break;
     case AliyunVodPlayerEventPlay:
       //暂停后恢复播放时触发
       break;
     case AliyunVodPlayerEventFirstFrame:
       //播放视频首帧显示出来时触发
+      [self setupTimer];
       break;
     case AliyunVodPlayerEventPause:
       //视频暂停时触发
@@ -96,6 +110,11 @@
       break;
     default:
       break;
+  }
+  
+  [callbackExt setObject:@(event) forKey:@"event"];
+  if (self.onEventCallback) {
+    self.onEventCallback(callbackExt);
   }
 }
 
@@ -128,6 +147,34 @@
  */
 - (void)vodPlayerPlaybackAddressExpiredWithVideoId:(NSString *)videoId quality:(AliyunVodPlayerVideoQuality)quality videoDefinition:(NSString*)videoDefinition{
   //鉴权有效期为2小时，在这个回调里面可以提前请求新的鉴权，stop上一次播放，prepare新的地址，seek到当前位置
+}
+
+#pragma mark - Timer
+- (void)setupTimer {
+  if (!_timer) {
+    WeakObj(self)
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+      if (selfWeak.aliPlayer) {
+        NSDictionary *callbackExt = @{
+                               @"currentTime": @(selfWeak.aliPlayer.currentTime),
+                               @"duration": @(selfWeak.aliPlayer.duration)
+                               };
+        if (selfWeak.onPlayingCallback) {
+          selfWeak.onPlayingCallback(callbackExt);
+        }
+        NSLog(@"Timer is keep running... %@", callbackExt);
+      }
+    }];
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+  } else {
+    [self clearTimer];
+    [self setupTimer];
+  }
+}
+
+- (void)clearTimer {
+  [_timer invalidate];
+  _timer = nil;
 }
 
 @end
