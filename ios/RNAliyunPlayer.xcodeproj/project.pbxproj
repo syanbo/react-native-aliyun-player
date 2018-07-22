@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3490AF6C2104834B00147CC2 /* AliyunPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3490AF6B2104834B00147CC2 /* AliyunPlayerView.m */; };
 		B3E7B58A1CC2AC0600A0062D /* RNAliyunPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNAliyunPlayer.m */; };
 		B8A4717020F44FBD00051544 /* AliyunPlayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A4716F20F44FBD00051544 /* AliyunPlayManager.m */; };
 		B8A471CF20F4543400051544 /* AliThirdparty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8A471CB20F4543400051544 /* AliThirdparty.framework */; };
@@ -28,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNAliyunPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNAliyunPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3490AF6A2104834A00147CC2 /* AliyunPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunPlayerView.h; sourceTree = "<group>"; };
+		3490AF6B2104834B00147CC2 /* AliyunPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunPlayerView.m; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNAliyunPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNAliyunPlayer.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNAliyunPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNAliyunPlayer.m; sourceTree = "<group>"; };
 		B8A4716E20F44FBD00051544 /* AliyunPlayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunPlayManager.h; sourceTree = "<group>"; };
@@ -63,6 +66,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				3490AF6A2104834A00147CC2 /* AliyunPlayerView.h */,
+				3490AF6B2104834B00147CC2 /* AliyunPlayerView.m */,
 				B8A471CA20F4543400051544 /* libs */,
 				B8A4716E20F44FBD00051544 /* AliyunPlayManager.h */,
 				B8A4716F20F44FBD00051544 /* AliyunPlayManager.m */,
@@ -139,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3490AF6C2104834B00147CC2 /* AliyunPlayerView.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNAliyunPlayer.m in Sources */,
 				B8A4717020F44FBD00051544 /* AliyunPlayManager.m in Sources */,
 			);
