@@ -7,13 +7,11 @@
 //
 
 #import "AliyunPlayerView.h"
-
 #define WeakObj(o) __weak typeof(o) o##Weak = o;
 
 @interface AliyunPlayerView ()
 
 @property (nonatomic, strong) NSDictionary *prepareAsyncParams;
-@property (nonatomic, strong) AliyunVodPlayer *aliPlayer;
 @property (nonatomic, strong) NSTimer *timer;
 
 @end
@@ -22,6 +20,8 @@
 
 - (void)dealloc {
   if (_aliPlayer) {
+      // 销毁
+    [_aliPlayer releasePlayer];
     if (_timer) {
       [self clearTimer];
     }
@@ -33,6 +33,22 @@
 - (void)setPrepareAsyncParams:(NSDictionary *)prepareAsyncParams {
   _prepareAsyncParams = prepareAsyncParams;
   [self setupAliPlayer];
+}
+
+- (void)setMuteMode:(BOOL)muteMode {
+    self.aliPlayer.muteMode = muteMode;
+}
+
+- (void)setQuality:(NSInteger)quality {
+    self.aliPlayer.quality = quality;
+}
+
+- (void)setVolume:(float)volume {
+    self.aliPlayer.volume = volume;
+}
+
+- (void)setBrightness:(float)brightness {
+    self.aliPlayer.brightness = brightness;
 }
 
 - (void)setupAliPlayer {
@@ -82,9 +98,23 @@
     case AliyunVodPlayerEventPrepareDone:
       //播放准备完成时触发
       [_aliPlayer start];
+      if (self.onGetAliyunMediaInfo) {
+          NSMutableDictionary *info = [NSMutableDictionary dictionary];
+          
+          AliyunVodPlayerVideo *video = [vodPlayer getAliyunMediaInfo];
+          info[@"videoId"] = video.videoId;
+          info[@"title"] = video.title;
+          info[@"duration"] = @(video.duration);
+          info[@"coverUrl"] = video.coverUrl;
+          info[@"videoQuality"] = @(video.videoQuality);
+          info[@"videoDefinition"] = video.videoDefinition;
+          info[@"allSupportQualitys"] = video.allSupportQualitys;
+          self.onGetAliyunMediaInfo(info);
+      }
       break;
     case AliyunVodPlayerEventPlay:
       //暂停后恢复播放时触发
+      [self setupTimer];
       break;
     case AliyunVodPlayerEventFirstFrame:
       //播放视频首帧显示出来时触发
@@ -92,6 +122,7 @@
       break;
     case AliyunVodPlayerEventPause:
       //视频暂停时触发
+      [self clearTimer];
       break;
     case AliyunVodPlayerEventStop:
       //主动使用stop接口时触发
@@ -121,16 +152,49 @@
 - (void)vodPlayer:(AliyunVodPlayer *)vodPlayer playBackErrorModel:(AliyunPlayerVideoErrorModel *)errorModel{
   //播放出错时触发，通过errorModel可以查看错误码、错误信息、视频ID、视频地址和requestId。
   NSLog(@"errorModel: %d", errorModel.errorCode);
+    if (self.onPlayBackErrorModel) {
+        self.onPlayBackErrorModel(@{
+                                 @"errorCode": @(errorModel.errorCode),
+                                 @"errorMsg": errorModel.errorMsg,
+                                 @"errorVid": errorModel.errorVid,
+                                 @"errorUrl": errorModel.errorUrl,
+                                 @"errorRequestId": errorModel.errorRequestId
+                                 }
+                                );
+    }
 }
 - (void)vodPlayer:(AliyunVodPlayer*)vodPlayer willSwitchToQuality:(AliyunVodPlayerVideoQuality)quality videoDefinition:(NSString*)videoDefinition{
   //将要切换清晰度时触发
   NSLog(@"willSwitchToQuality:%@", videoDefinition);
+    if (self.onSwitchToQuality) {
+        self.onSwitchToQuality(@{
+                                 @"type": @"will",
+                                 @"quality": @(quality),
+                                 @"videoDefinition": videoDefinition}
+                               );
+    }
 }
 - (void)vodPlayer:(AliyunVodPlayer *)vodPlayer didSwitchToQuality:(AliyunVodPlayerVideoQuality)quality videoDefinition:(NSString*)videoDefinition{
-  //清晰度切换完成后触发
+    //清晰度切换完成后触发
+    if (self.onSwitchToQuality) {
+        self.onSwitchToQuality(@{
+                                 @"type": @"did",
+                                 @"quality": @(quality),
+                                 @"videoDefinition": videoDefinition}
+                                );
+    }
+    
 }
 - (void)vodPlayer:(AliyunVodPlayer*)vodPlayer failSwitchToQuality:(AliyunVodPlayerVideoQuality)quality videoDefinition:(NSString*)videoDefinition{
   //清晰度切换失败触发
+    if (self.onSwitchToQuality) {
+        self.onSwitchToQuality(@{
+                                 @"type": @"fail",
+                                 @"quality": @(quality),
+                                 @"videoDefinition": videoDefinition}
+                               );
+    }
+    
 }
 - (void)onCircleStartWithVodPlayer:(AliyunVodPlayer*)vodPlayer{
   //开启循环播放功能，开始循环播放时接收此事件。
@@ -175,6 +239,11 @@
 - (void)clearTimer {
   [_timer invalidate];
   _timer = nil;
+}
+
+- (dispatch_queue_t)methodQueue
+{
+    return dispatch_get_main_queue();
 }
 
 @end

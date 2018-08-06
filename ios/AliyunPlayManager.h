@@ -14,9 +14,12 @@
 #else
 #import “React/RCTViewManager.h” // Required when used as a Pod in a Swift project
 #endif
+#import "AliyunPlayerView.h"
 
 // Subclass your view manager off the RCTViewManager
 // http://facebook.github.io/react-native/docs/native-components-ios.html#ios-mapview-example
 @interface AliyunPlayManager : RCTViewManager
+
+@property (nonatomic, strong) AliyunPlayerView *playerView;
 
 @end
