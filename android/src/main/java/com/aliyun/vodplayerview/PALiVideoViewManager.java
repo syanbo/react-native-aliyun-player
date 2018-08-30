@@ -2,21 +2,19 @@ package com.aliyun.vodplayerview;
 
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
 
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.aliyun.vodplayerview.view.RNAliyunPlayer;
 
 
-public class ALiVideoViewManager extends SimpleViewManager<RNAliyunPlayer> {
-    private String TAG = ALiVideoViewManager.class.getSimpleName();
-    private static final String REACT_CLASS = "ALiVideoView";
+public class PALiVideoViewManager extends SimpleViewManager<RNAliyunPlayer> {
+    private String TAG = PALiVideoViewManager.class.getSimpleName();
+    private static final String REACT_CLASS = "AliyunPlay";
 
 
     /**
@@ -67,7 +65,7 @@ public class ALiVideoViewManager extends SimpleViewManager<RNAliyunPlayer> {
     public void setUrl(RNAliyunPlayer rnAliyunPlayer, @Nullable String url) {
         Log.i(TAG, "setUrl;".concat(url));
 //        player.initUI();
-        ALiVideoViewManager.getInstance().setSource(url);
+        PALiVideoViewManager.getInstance().setSource(url);
 
 //        player.setSource(url);
 
@@ -92,14 +90,14 @@ public class ALiVideoViewManager extends SimpleViewManager<RNAliyunPlayer> {
     public void start(RNAliyunPlayer rnAliyunPlayer, @Nullable int i) {
 //        RNAliyunPlayer.start();
 //        rnAliyunPlayer.initUI();
-        //        ALiVideoViewManager.getInstance().setSource("http://player.alicdn.com/video/aliyunmedia.mp4");
-        ALiVideoViewManager.getInstance().onResume();
+        //        PALiVideoViewManager.getInstance().setSource("http://player.alicdn.com/video/aliyunmedia.mp4");
+        PALiVideoViewManager.getInstance().onResume();
 
     }
 
     @ReactProp(name = "pause")
     public void pause(RNAliyunPlayer RNAliyunPlayer, @Nullable int i) {
-        ALiVideoViewManager.getInstance().onStop();
+        PALiVideoViewManager.getInstance().onStop();
     }
 
 

@@ -12,9 +12,9 @@ import com.facebook.react.bridge.ReactMethod;
  * Created by Administrator on 2017/9/16.
  */
 
-public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
+public class PAliyunVideoMoudle extends ReactContextBaseJavaModule {
     ReactApplicationContext context;
-    public AliyunVideoMoudle(ReactApplicationContext context) {
+    public PAliyunVideoMoudle(ReactApplicationContext context) {
         super(context);
     }
 
@@ -27,26 +27,26 @@ public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
     @ReactMethod
     public void start() {
         Log.i(getName(), "start");
-//        ALiVideoViewManager.getInstance().initUI();
-//        ALiVideoViewManager.getInstance().setSource("http://player.alicdn.com/video/aliyunmedia.mp4");
-        ALiVideoViewManager.getInstance().onResume();
+//        PALiVideoViewManager.getInstance().initUI();
+//        PALiVideoViewManager.getInstance().setSource("http://player.alicdn.com/video/aliyunmedia.mp4");
+        PALiVideoViewManager.getInstance().onResume();
     }
     @ReactMethod
     public void setUrl() {
         Log.i(getName(), "start");
-//        ALiVideoViewManager.getInstance().initUI();
-        ALiVideoViewManager.getInstance().setSource("http://player.alicdn.com/video/aliyunmedia.mp4");
-//        ALiVideoViewManager.getInstance().onResume();
+//        PALiVideoViewManager.getInstance().initUI();
+        PALiVideoViewManager.getInstance().setSource("http://player.alicdn.com/video/aliyunmedia.mp4");
+//        PALiVideoViewManager.getInstance().onResume();
     }
     @ReactMethod
     public void pause() {
 
-        ALiVideoViewManager.getInstance().onStop();
+        PALiVideoViewManager.getInstance().onStop();
     }
 
     @ReactMethod
     public void release() {
-//        ALiVideoViewManager.getInstance().release();
+//        PALiVideoViewManager.getInstance().release();
     }
 
     /**
@@ -55,7 +55,7 @@ public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void reSetRender() {
-//        ALiVideoViewManager.getInstance().reSetRender();
+//        PALiVideoViewManager.getInstance().reSetRender();
     }
 
     /**
@@ -63,7 +63,7 @@ public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void seekTo(int i) {
-//        ALiVideoViewManager.getInstance().seekTo(i);
+//        PALiVideoViewManager.getInstance().seekTo(i);
     }
 
     /**
@@ -73,7 +73,7 @@ public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void getDuration(Callback successCallback) {
-//        successCallback.invoke(ALiVideoViewManager.getInstance().getDuration());
+//        successCallback.invoke(PALiVideoViewManager.getInstance().getDuration());
     }
 
     /**
@@ -83,7 +83,7 @@ public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void getCurrentPosition(Callback successCallback) {
-//        successCallback.invoke(ALiVideoViewManager.getInstance().getCurrentPosition());
+//        successCallback.invoke(PALiVideoViewManager.getInstance().getCurrentPosition());
     }
 
     /**
@@ -93,7 +93,7 @@ public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void getVideoLayout(Callback successCallback) {
-//        successCallback.invoke(ALiVideoViewManager.getInstance().getVideoWidth(),ALiVideoViewManager.getInstance().getVideoHeight());
+//        successCallback.invoke(PALiVideoViewManager.getInstance().getVideoWidth(),PALiVideoViewManager.getInstance().getVideoHeight());
     }
 
     /**
@@ -103,7 +103,7 @@ public class AliyunVideoMoudle extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void isPlaying(Callback successCallback) {
-//        successCallback.invoke(ALiVideoViewManager.getInstance().isPlaying());
+//        successCallback.invoke(PALiVideoViewManager.getInstance().isPlaying());
     }
 
 

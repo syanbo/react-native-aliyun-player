@@ -21,16 +21,16 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.lang.ref.WeakReference;
 
-public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
+public class AliyunPlayManager extends SimpleViewManager<PAliyunPlayerView> {
     private static final String TAG = "AliyunPlayManager";
-    public static final String REACT_CLASS = "AliyunPlay";
+    public static final String REACT_CLASS = "AliyunPlays";
     private static final String PLAYING_CALLBACK = "onPlayingCallback";
     private static final String EVENT_CALLBACK = "onEventCallback";
 
     //视频画面
     private SurfaceView mSurfaceView;
     // 组件view
-    private AliyunPlayerView mAliyunPlayerView;
+    private PAliyunPlayerView mAliyunPlayerView;
     //播放器
     private AliyunVodPlayer mAliyunVodPlayer;
     // 播放进度计时器
@@ -44,8 +44,8 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
     }
 
     @Override
-    public AliyunPlayerView createViewInstance(ThemedReactContext context) {
-        AliyunPlayerView view = new AliyunPlayerView(context);
+    public PAliyunPlayerView createViewInstance(ThemedReactContext context) {
+        PAliyunPlayerView view = new PAliyunPlayerView(context);
         mAliyunPlayerView = view;
 
         mSurfaceView = new SurfaceView(context);
@@ -84,7 +84,7 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
      * 准备视频(异步)
      */
     @ReactProp(name = "prepareAsyncParams")
-    public void setPrepareAsyncParams(AliyunPlayerView view, ReadableMap options) {
+    public void setPrepareAsyncParams(PAliyunPlayerView view, ReadableMap options) {
 
         String type = options.getString("type");
 
