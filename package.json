@@ -1,0 +1,47 @@
+{
+  "_from": "react-native-aliyun-player@^0.0.1",
+  "_id": "react-native-aliyun-player@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-zvseeBXzCtg3XxEMKRFYoBB1v+m1r+DkEtzWvsFHv7DF7rDE6zwuuFcLzdHw/GogdzIQPbtbti56SL8CD6Ao9A==",
+  "_location": "/react-native-aliyun-player",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "react-native-aliyun-player@^0.0.1",
+    "name": "react-native-aliyun-player",
+    "escapedName": "react-native-aliyun-player",
+    "rawSpec": "^0.0.1",
+    "saveSpec": null,
+    "fetchSpec": "^0.0.1"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-aliyun-player/-/react-native-aliyun-player-0.0.1.tgz",
+  "_shasum": "36a7c3fdd35918132874b4d699638680bd26b38b",
+  "_spec": "react-native-aliyun-player@^0.0.1",
+  "_where": "/Users/admin/workspace/RNAliyunPlayerExample",
+  "author": "",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "## Getting started",
+  "keywords": [
+    "react-native",
+    "aliyun",
+    "aliyun-player",
+    "react",
+    "player"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-aliyun-player",
+  "peerDependencies": {
+    "react-native": "^0.41.2",
+    "react-native-windows": "0.41.0-rc.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.1"
+}
