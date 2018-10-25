@@ -12,12 +12,21 @@
 ### 安卓
 ```$xslt
 app的gradle文件添加
-
-    repositories {
-        flatDir {
-            dirs project(':react-native-aliyun-player').file('libs')
-        }
+android{
+    ...
+    packagingOptions {
+        pickFirst 'lib/armeabi-v7a/libgnustl_shared.so'
+        pickFirst 'lib/arm64-v8a/libgnustl_shared.so'
+        pickFirst 'lib/x86_64/libgnustl_shared.so'
+        pickFirst 'lib/x86/libgnustl_shared.so'
     }
+}
+
+repositories {
+    flatDir {
+        dirs project(':react-native-aliyun-player').file('libs')
+    }
+}
 ```
 
 ### Manual installation
