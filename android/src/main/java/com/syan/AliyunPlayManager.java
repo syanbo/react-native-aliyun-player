@@ -34,7 +34,7 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
     //播放器
     private AliyunVodPlayer mAliyunVodPlayer;
     // 播放进度计时器
-    private ProgressUpdateTimer mProgressUpdateTimer = new ProgressUpdateTimer(this);
+    private ProgressUpdateTimer mProgressUpdateTimer;
     // 事件发送者
     private RCTEventEmitter mEventEmitter;
 
@@ -45,6 +45,7 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
 
     @Override
     public AliyunPlayerView createViewInstance(ThemedReactContext context) {
+        mProgressUpdateTimer = new ProgressUpdateTimer(AliyunPlayManager.this);
         AliyunPlayerView view = new AliyunPlayerView(context);
         mAliyunPlayerView = view;
 
