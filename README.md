@@ -10,6 +10,7 @@
 `$ react-native link react-native-aliyun-player`
 
 ### 安卓
+请使用真机
 ```$xslt
 app的gradle文件添加
 android{
