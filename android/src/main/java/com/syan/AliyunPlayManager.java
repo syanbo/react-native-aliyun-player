@@ -45,6 +45,7 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
 
     @Override
     public AliyunPlayerView createViewInstance(ThemedReactContext context) {
+        mEventEmitter = context.getJSModule(RCTEventEmitter.class);
         mProgressUpdateTimer = new ProgressUpdateTimer(AliyunPlayManager.this);
         AliyunPlayerView view = new AliyunPlayerView(context);
         mAliyunPlayerView = view;
