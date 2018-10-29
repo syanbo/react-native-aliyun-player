@@ -7,8 +7,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -20,6 +22,9 @@ import com.aliyun.vodplayer.media.AliyunVodPlayer;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.lang.ref.WeakReference;
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
     private static final String TAG = "AliyunPlayManager";
@@ -45,6 +50,7 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
 
     @Override
     public AliyunPlayerView createViewInstance(ThemedReactContext context) {
+        //reactContext = context;
         mEventEmitter = context.getJSModule(RCTEventEmitter.class);
         mProgressUpdateTimer = new ProgressUpdateTimer(AliyunPlayManager.this);
         AliyunPlayerView view = new AliyunPlayerView(context);
@@ -78,7 +84,6 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
             }
         });
 
-        this.onListener();
         return view;
     }
 
@@ -113,10 +118,20 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
         }
     }
 
+    //        this.onListener();
+
+
+    @Override
+    protected void addEventEmitters(ThemedReactContext reactContext, AliyunPlayerView view) {
+        this.onListener(reactContext, view);
+    }
+
     /**
      * 播放器监听事件
+     * @param reactContext
+     * @param view
      */
-    private void onListener() {
+    private void onListener(final ThemedReactContext reactContext, AliyunPlayerView view) {
 
         Log.e(TAG, "版本号" + AliyunVodPlayer.getSDKVersion());
 
@@ -211,5 +226,14 @@ public class AliyunPlayManager extends SimpleViewManager<AliyunPlayerView> {
             }
             super.handleMessage(msg);
         }
+    }
+
+    @Nullable
+    @Override
+    public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
+        MapBuilder.Builder builder = MapBuilder.builder();
+        builder.put(EVENT_CALLBACK, MapBuilder.of("registrationName", EVENT_CALLBACK));
+        builder.put(PLAYING_CALLBACK, MapBuilder.of("registrationName", PLAYING_CALLBACK));
+        return builder.build();
     }
 }
